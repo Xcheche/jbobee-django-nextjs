@@ -13,3 +13,4 @@ whitenoise
 django-debug-toolbar
 dj-database-url
 python-decouple
+# gdal # --- IGNORE --- USING SYSTEM PACKAGE INSTEAD

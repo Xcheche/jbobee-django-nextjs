@@ -1,0 +1,77 @@
+GDAL & GEOS Setup for GeoDjango (Local Development)
+
+This guide explains how to set up GDAL and GEOS for your Django project in a local development environment, without Docker.
+
+GeoDjango requires these libraries to handle geospatial fields like PointField, PolygonField, etc.
+
+1️⃣ Install System Libraries
+
+On Ubuntu/Debian:
+
+sudo apt-get update
+sudo apt-get install -y gdal-bin libgdal-dev libgeos-dev
+
+
+gdal-bin → GDAL command-line tools
+
+libgdal-dev → GDAL development headers
+
+libgeos-dev → GEOS library for geometric operations
+
+For other OS:
+
+macOS: brew install gdal geos
+
+Windows: Download GDAL/GEOS binaries or use OSGeo4W installer
+
+2️⃣ Install Python Packages
+
+Activate your virtual environment and run:
+
+pip install Django psycopg2-binary gdal
+
+
+Important: The GDAL Python package requires the GDAL system libraries to be installed first.
+
+3️⃣ Set Environment Variables (Optional)
+
+Sometimes Django cannot automatically locate GDAL/GEOS libraries. You can set environment variables:
+
+export GDAL_LIBRARY_PATH=/usr/lib/libgdal.so
+export GEOS_LIBRARY_PATH=/usr/lib/libgeos_c.so
+
+
+Add these lines to your .bashrc or .zshrc for persistence:
+
+echo 'export GDAL_LIBRARY_PATH=/usr/lib/libgdal.so' >> ~/.bashrc
+echo 'export GEOS_LIBRARY_PATH=/usr/lib/libgeos_c.so' >> ~/.bashrc
+source ~/.bashrc
+
+4️⃣ Configure Django Settings
+
+If you are using python-decouple to manage environment variables:
+
+In your .env file:
+
+GDAL_LIBRARY_PATH=/usr/lib/libgdal.so
+GEOS_LIBRARY_PATH=/usr/lib/libgeos_c.so
+
+
+In settings.py:
+
+from decouple import config
+
+GDAL_LIBRARY_PATH = config('GDAL_LIBRARY_PATH')
+GEOS_LIBRARY_PATH = config('GEOS_LIBRARY_PATH')
+
+5️⃣ Summary
+
+Install system libraries (GDAL, GEOS).
+
+Install Python bindings (pip install gdal).
+
+Optionally, export library paths.
+
+Configure Django settings to use these paths.
+
+You are ready to use GeoDjango fields like PointField, PolygonField, etc.

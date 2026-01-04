@@ -1,0 +1,14 @@
+On poor network 
+export DOCKER_CLIENT_TIMEOUT=300
+export COMPOSE_HTTP_TIMEOUT=300O
+
+
+TO test for gdal and geos in a Django project with Docker
+docker compose exec web python manage.py shell -c "from django.contrib.gis import gdal, geos; print('GDAL version:', gdal.GDAL_VERSION); print('GEOS version:', geos.geos_version())"
+
+
+To see libgeosdocker compose logs -f
+
+To check db health
+docker inspect -f '{{.State.Health.Status}}' jobee-db-1
+

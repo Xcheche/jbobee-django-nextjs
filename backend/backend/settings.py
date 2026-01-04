@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-@5$p9#knp&2+pf&5e6-l74md_j^v9%*rl_4dkpsrgp8l4@1*%n
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #gis
+    'django.contrib.gis',
+    #local apps
 ]
 
 MIDDLEWARE = [
@@ -121,3 +124,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+
+# ------------------------------------------------------------------
+# GDAL & GEOS library paths (Docker + Debian Bullseye)
+# ------------------------------------------------------------------
+
+GDAL_LIBRARY_PATH = "/usr/lib/libgdal.so"
+GEOS_LIBRARY_PATH = "/usr/lib/x86_64-linux-gnu/libgeos_c.so.1"
