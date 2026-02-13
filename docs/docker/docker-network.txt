@@ -1,0 +1,100 @@
+# File: docker_network_setup.md
+
+# Docker Network Setup Guide for GeoDjango + PostGIS
+
+## 1. Create the Docker Network
+
+```bash
+docker network create jobee_local_nw
+```
+
+Optional with subnet:
+```bash
+docker network create --driver bridge --subnet 172.25.0.0/16 jobee_local_nw
+```
+
+## 2. List All Networks
+
+```bash
+docker network ls
+```
+
+Example output:
+```
+NETWORK ID     NAME               DRIVER    SCOPE
+c06869...      jobee_local_nw     bridge    local
+```
+
+## 3. Inspect a Network
+
+```bash
+docker network inspect jobee_local_nw
+```
+
+Output shows containers, IPs, and driver.
+
+## 4. Connect a Running Container to the Network
+
+```bash
+docker network connect jobee_local_nw <container_name_or_id>
+```
+
+Disconnect:
+```bash
+docker network disconnect jobee_local_nw <container_name_or_id>
+```
+
+## 5. Remove a Network
+
+```bash
+docker network rm jobee_local_nw
+```
+
+⚠️ Containers must be disconnected first.
+
+## 6. Rename a Network
+
+```bash
+docker network rename old_name new_name
+```
+
+## 7. Use Network in docker-compose.yml
+
+```yaml
+services:
+  postgres:
+    image: postgis/postgis:16-3.4
+    networks:
+      - jobee_local_nw
+
+  django:
+    build: .
+    networks:
+      - jobee_local_nw
+
+networks:
+  jobee_local_nw:
+    external: true  # Use pre-created network
+```
+
+## 8. Diagram Concept
+
+```
++------------------------+
+|      jobee_local_nw    |   <- Docker Network
+|                        |
+|  +-----------+         |
+|  |  Django   | <-------+-- talks to postgres via service name
+|  +-----------+         |
+|                        |
+|  +-----------+         |
+|  | Postgres  |         |
+|  +-----------+         |
+|                        |
+|  +-----------+         |
+|  |  Redis    |         |
+|  +-----------+         |
++------------------------+
+```
+
+All containers on the same network can communicate using **service names** like `postgres` or `redis`.

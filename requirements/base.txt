@@ -1,0 +1,18 @@
+django
+djangorestframework
+psycopg2-binary
+gunicorn
+django-cors-headers
+Pillow
+django-filter
+django-extensions
+boto3
+django-storages
+djangorestframework-simplejwt
+geocoder
+whitenoise
+loguru
+
+dj-database-url
+python-decouple
+# gdal # --- IGNORE --- USING SYSTEM PACKAGE INSTEAD

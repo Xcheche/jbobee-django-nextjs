@@ -1,0 +1,85 @@
+---
+
+# YAML Tools Guide
+
+## 1. yamllint
+
+### Install
+
+Ubuntu/Debian:
+
+```bash
+sudo apt update
+sudo apt install yamllint
+```
+
+Python/pip:
+
+```bash
+pip install yamllint
+```
+
+### Usage
+
+Check a YAML file:
+
+```bash
+yamllint local.yml
+```
+
+Check all YAML files in a folder:
+
+```bash
+yamllint *.yml
+```
+
+### Fix manually
+
+* Add `---` at the top
+* Remove trailing spaces
+* Add newline at the end
+
+## 2. Prettier
+
+### Install
+
+Requires Node.js/npm:
+
+```bash
+npx prettier --write local.yml
+
+```
+
+### Usage
+
+Format YAML file in place:
+
+```bash
+prettier --write local.yml
+#or Use to formatt always it will ask for install if preetier not availabale firstly install yamllint in pc and run yamllint <filename> to see errors
+#Fix with preetier
+npx prettier --write local.yml
+
+```
+
+Check formatting without changing the file:
+
+```bash
+prettier --check local.yml
+```
+
+## Workflow
+
+1. Run yamllint to catch errors:
+
+```bash
+yamllint local.yml
+```
+
+2. Run prettier to auto-format:
+
+```bash
+prettier --write local.yml
+```
+
+3. Verify with yamllint again.

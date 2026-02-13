@@ -1,0 +1,9 @@
+-r base.txt
+
+
+
+
+
+
+django-debug-toolbar
+black==24.8.0
